@@ -20,7 +20,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	// return the number of items on the queue
 	public int size() {
 		return this.size();
-
+	}
+	
+	// Get current size
+	public int getSize() {
+		return this.size;
 	}
 
 	// add the item
@@ -28,13 +32,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		if (item == null) {
 			throw new NullPointerException("Cannot add a null object");
 		}
-		itemQueue[size++] = item;
+		itemQueue[size] = item;
+		size++;
 	}
 
 	// remove and return a random item
 	public Item dequeue() {
 		int randItem = StdRandom.uniform(size);
-		itemQueue[randItem - 1] = null;
+		if (randItem == 0) {
+			itemQueue[randItem] = null;
+		} else {
+			itemQueue[randItem - 1] = null;	
+		}		
 		Item item = itemQueue[randItem];
 		size--;
 		return item;
@@ -43,7 +52,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	// return (but do not remove) a random item
 	public Item sample() {
 		int randItem = StdRandom.uniform(size);
-		Item item = itemQueue[randItem - 1];
+		System.out.println("randItem = " + randItem);
+		Item item = itemQueue[randItem];
 		return item;
 	}
 
@@ -60,22 +70,37 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 		while (!StdIn.isEmpty()) {
 			String s = StdIn.readString();
-			System.out.println(s);
+			System.out.println("Enqueued : " + s + " on element " + randQueue.getSize());
 			randQueue.enqueue(s);
 		}
 		
-		
+		// Print a random item
+		String sample = randQueue.sample();		
+		System.out.println("The item " + sample + " was just sampled");
+
+		// Iterator<String> i = randQueue.iterator();		
 		for (String item : randQueue) {
 			System.out.println("Here is item " + item);
 		}
+
+		// Dequeue one item
+		String dequeued = randQueue.dequeue();		
+		System.out.println("The item " + dequeued + " was just dequeued");
+
+		// Print the queue after the dequeue
+		for (String item : randQueue) {
+			System.out.println("Here is item " + item);
+		}
+		
+
 	}
 
 	// Queue iterator implementation
 	private class RandIterator implements Iterator<Item> {
-		private int i = size;
+		private int i = 0;
 
 		public boolean hasNext() {
-			return i > 0;
+			return i < CAPACITY;
 		}
 
 		public void remove() {
@@ -83,7 +108,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		}
 
 		public Item next() {
-			return itemQueue[++i];
+			return itemQueue[i++];
 		}
 	}
 }

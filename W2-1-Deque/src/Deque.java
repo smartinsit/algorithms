@@ -1,6 +1,5 @@
 
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class Deque<Item> implements Iterable<Item> {
 
