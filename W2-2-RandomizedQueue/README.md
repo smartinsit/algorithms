@@ -1,5 +1,5 @@
 # Randomized Queue
 ## How to run the code
 
-$ cd W2-2-RandomizedQueue/bin
-$ echo 01 02 03 |java -cp /Users/smartins/studies/Java/Coursera/libs/stdlib.jar:.: RandomizedQueue hi
+$ cd W2-2-RandomizedQueue/bin  
+$ echo 01 02 03 |java -cp /Users/smartins/studies/Java/Coursera/libs/stdlib.jar:.: RandomizedQueue   
