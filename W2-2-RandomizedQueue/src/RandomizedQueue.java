@@ -37,14 +37,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 
 	// remove and return a random item
-	public Item dequeue() {
-		int randItem = StdRandom.uniform(size);
-		if (randItem == 0) {
-			itemQueue[randItem] = null;
-		} else {
-			itemQueue[randItem - 1] = null;	
+	public Item dequeue(int numItems) {
+		int randItem = StdRandom.uniform(numItems);
+		if (randItem > 0) {
+			randItem--;
 		}		
+		System.out.println("RandomizedQueue - dequeu() - numItems " + numItems + " randItem " + randItem + " ");
 		Item item = itemQueue[randItem];
+		itemQueue[randItem] = null;
 		size--;
 		return item;
 	}
@@ -84,7 +84,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		}
 
 		// Dequeue one item
-		String dequeued = randQueue.dequeue();		
+		String dequeued = randQueue.dequeue(randQueue.getSize());		
 		System.out.println("The item " + dequeued + " was just dequeued");
 
 		// Print the queue after the dequeue
